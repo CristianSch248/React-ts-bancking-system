@@ -1,14 +1,16 @@
 import axios from 'axios';
 
-// Pega a URL base do arquivo .env
 const baseURL = import.meta.env.VITE_API_URL;
+
+console.log(import.meta.env.MODE); // 'development' ou 'production'
+console.log(import.meta.env.VITE_API_URL); // A URL configurada
+
 
 const api = axios.create({
   baseURL,
-  timeout: 10000, // Tempo limite
+  timeout: 10000,
 });
 
-// Interceptor para requisições
 api.interceptors.request.use(
   (config) => {
     return config;
@@ -19,7 +21,6 @@ api.interceptors.request.use(
   }
 );
 
-// Interceptor para respostas
 api.interceptors.response.use(
   (response) => {
     console.log('Resposta:', response);
