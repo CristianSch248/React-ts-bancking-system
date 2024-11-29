@@ -1,10 +1,6 @@
 import axios from 'axios';
 
-const baseURL = import.meta.env.VITE_API_URL;
-
-console.log(import.meta.env.MODE); // 'development' ou 'production'
-console.log(import.meta.env.VITE_API_URL); // A URL configurada
-
+const baseURL = 'https://banking-system-lyki.onrender.com';
 
 const api = axios.create({
   baseURL,
