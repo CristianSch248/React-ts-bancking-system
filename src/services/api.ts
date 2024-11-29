@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const baseURL = 'https://banking-system-lyki.onrender.com';
+const baseURL = import.meta.env.VITE_API_URL;
 
 const api = axios.create({
   baseURL,
