@@ -9,6 +9,13 @@ const api = axios.create({
 
 api.interceptors.request.use(
   (config) => {
+    const token = sessionStorage.getItem('authToken');
+    if (token) {
+      config.headers.Authorization = `Bearer ${token}`;
+    }
+
+    console.log('Requisição enviada:', config);
+
     return config;
   },
   (error) => {
@@ -19,12 +26,17 @@ api.interceptors.request.use(
 
 api.interceptors.response.use(
   (response) => {
-    console.log('Resposta:', response);
+    console.log('Resposta recebida:', response);
+
     return response;
   },
   (error) => {
     if (error.response) {
       console.error('Erro na resposta:', error.response);
+
+      if (error.response.status === 401) {
+        window.location.href = '/login';
+      }
     } else {
       console.error('Erro desconhecido:', error);
     }
