@@ -1,0 +1,94 @@
+.admin-dashboard-container {
+    padding: 20px;
+    max-width: 800px;
+    margin: 0 auto;
+    font-family: Arial, sans-serif;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .admin-dashboard-title {
+    text-align: center;
+    font-size: 24px;
+    color: #333;
+    margin-bottom: 20px;
+  }
+  
+  .admin-dashboard-logout {
+    padding: 10px;
+    background-color: #f44336;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    display: block;
+    margin: 0 auto 20px;
+    font-size: 16px;
+  }
+  
+  .admin-dashboard-logout:hover {
+    background-color: #d32f2f;
+  }
+  
+  .admin-dashboard-error {
+    color: red;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .admin-dashboard-loading {
+    text-align: center;
+    color: #555;
+  }
+  
+  .admin-dashboard-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+  }
+  
+  .admin-dashboard-table th,
+  .admin-dashboard-table td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: center;
+  }
+  
+  .admin-dashboard-table th {
+    background-color: #f1f1f1;
+  }
+  
+  .admin-dashboard-button {
+    padding: 5px 10px;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    color: #fff;
+    font-size: 14px;
+    margin-right: 5px;
+  }
+  
+  .admin-dashboard-button.approve {
+    background-color: #4caf50;
+  }
+  
+  .admin-dashboard-button.approve:hover {
+    background-color: #388e3c;
+  }
+  
+  .admin-dashboard-button.reject {
+    background-color: #f44336;
+  }
+  
+  .admin-dashboard-button.reject:hover {
+    background-color: #d32f2f;
+  }
+  
+  .admin-dashboard-button:disabled {
+    cursor: not-allowed;
+    background-color: #ccc;
+    color: #666;
+  }
+  

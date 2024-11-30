@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { userService } from '../../services/userService';
+import { Service } from '../../services/service';
 
 interface User {
   id: string;
@@ -7,14 +7,14 @@ interface User {
   balance: number;
 }
 
-const UserList: React.FC = () => {
+const UserList: React.FC = React.memo(() => {
   const [users, setUsers] = useState<User[]>([]);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const data = await userService.getUsers();
+        const data = await Service.getUsers();
         setUsers(data);
       } catch (err) {
         setError('Erro ao buscar usuários.');
@@ -25,19 +25,23 @@ const UserList: React.FC = () => {
     fetchUsers();
   }, []);
 
+  const UserItem: React.FC<User> = React.memo(({ id, username, balance }) => (
+    <li key={id}>
+      {username} - Saldo: {balance.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}
+    </li>
+  ));
+
   return (
-    <div>
-      <h1>Lista de Usuários</h1>
-      {error && <p>{error}</p>}
-      <ul>
+    <div className="user-list-container">
+      <h1 className="user-list-title">Lista de Usuários</h1>
+      {error && <p className="user-list-error">{error}</p>}
+      <ul className="user-list">
         {users.map((user) => (
-          <li key={user.id}>
-            {user.username} - Saldo: {user.balance}
-          </li>
+          <UserItem key={user.id} {...user} />
         ))}
       </ul>
     </div>
   );
-};
+});
 
 export default UserList;

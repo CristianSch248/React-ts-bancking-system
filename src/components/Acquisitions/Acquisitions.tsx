@@ -1,30 +1,29 @@
-import axios from 'axios';
 import React, { useEffect, useState } from 'react';
+import { Service } from '../../services/service';
+import './Acquisitions.css';
 
 interface AcquisitionsProps {
-  navigateToDashboard: () => void; // Função para voltar à Dashboard
+  navigateToDashboard: () => void;
 }
 
 const Acquisitions: React.FC<AcquisitionsProps> = ({ navigateToDashboard }) => {
-  const [descricao, setDescricao] = useState(''); // Descrição da compra
-  const [valor, setValor] = useState(''); // Valor da compra
-  const [compras, setCompras] = useState<any[]>([]); // Lista de compras
-  const [error, setError] = useState<string | null>(null); // Erros
-  const [successMessage, setSuccessMessage] = useState<string | null>(null); // Mensagem de sucesso
-  const [userId, setUserId] = useState<string | null>(null); // ID do usuário (obtido da sessão)
+  const [descricao, setDescricao] = useState('');
+  const [valor, setValor] = useState('');
+  const [compras, setCompras] = useState<any[]>([]);
+  const [error, setError] = useState<string | null>(null);
+  const [successMessage, setSuccessMessage] = useState<string | null>(null);
+  const [userId, setUserId] = useState<string | null>(null);
 
-  // Obtém o ID do usuário da sessão no momento do carregamento do componente
   useEffect(() => {
     const storedUserId = sessionStorage.getItem('userId');
     if (storedUserId) {
       setUserId(storedUserId);
-      fetchAcquisitions(storedUserId); // Buscar compras automaticamente
+      fetchAcquisitions(storedUserId);
     } else {
       setError('Usuário não autenticado. Por favor, faça login.');
     }
   }, []);
 
-  // Função para cadastrar uma nova compra
   const handleCreateAcquisition = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!userId) {
@@ -33,25 +32,21 @@ const Acquisitions: React.FC<AcquisitionsProps> = ({ navigateToDashboard }) => {
     }
 
     try {
-      const response = await axios.post(`http://localhost:3000/acquisitions/${userId}`, {
-        descricao,
-        valor,
-      });
-      setSuccessMessage(response.data.message);
+      const response = await Service.createAcquisition(userId, { descricao, valor });
+      setSuccessMessage(response.message);
       setDescricao('');
       setValor('');
-      fetchAcquisitions(userId); // Atualizar a lista de compras após cadastro
+      fetchAcquisitions(userId);
     } catch (err: any) {
       console.error(err);
       setError(err.response?.data?.message || 'Erro ao cadastrar compra.');
     }
   };
 
-  // Função para buscar todas as compras do usuário
   const fetchAcquisitions = async (userId: string) => {
     try {
-      const response = await axios.get(`http://localhost:3000/acquisitions/${userId}`);
-      setCompras(response.data.compras || []);
+      const acquisitions = await Service.getAcquisitions(userId);
+      setCompras(acquisitions || []);
       setError(null);
     } catch (err: any) {
       console.error(err);
@@ -60,77 +55,52 @@ const Acquisitions: React.FC<AcquisitionsProps> = ({ navigateToDashboard }) => {
   };
 
   return (
-    <div style={{ padding: '20px', maxWidth: '600px', margin: '0 auto' }}>
-      <h1>Gerenciamento de Compras</h1>
+    <div className="acquisitions-container">
+      <h1 className="acquisitions-title">Gerenciamento de Compras</h1>
 
-      {/* Botão para voltar à Dashboard */}
-      <button
-        onClick={navigateToDashboard}
-        style={{
-          marginBottom: '20px',
-          padding: '10px',
-          backgroundColor: '#007BFF',
-          color: '#FFF',
-          border: 'none',
-          borderRadius: '5px',
-          cursor: 'pointer',
-        }}
-      >
+      <button className="acquisitions-back-button" onClick={navigateToDashboard}>
         Voltar à Dashboard
       </button>
 
-      {/* Sessão de Cadastro */}
-      <div style={{ marginBottom: '20px' }}>
+      <div className="acquisitions-form-section">
         <h2>Cadastrar Nova Compra</h2>
         <form onSubmit={handleCreateAcquisition}>
-          <div style={{ marginBottom: '10px' }}>
+          <div className="acquisitions-field">
             <label>Descrição:</label>
             <input
               type="text"
               value={descricao}
               onChange={(e) => setDescricao(e.target.value)}
               placeholder="Digite a descrição"
-              style={{ width: '100%', padding: '8px', marginTop: '5px' }}
+              className="acquisitions-input"
             />
           </div>
-          <div style={{ marginBottom: '10px' }}>
+          <div className="acquisitions-field">
             <label>Valor:</label>
             <input
               type="text"
               value={valor}
               onChange={(e) => setValor(e.target.value)}
               placeholder="Digite o valor"
-              style={{ width: '100%', padding: '8px', marginTop: '5px' }}
+              className="acquisitions-input"
             />
           </div>
-          <button
-            type="submit"
-            style={{
-              width: '100%',
-              padding: '10px',
-              backgroundColor: '#007BFF',
-              color: '#FFF',
-              border: 'none',
-              borderRadius: '5px',
-              cursor: 'pointer',
-            }}
-          >
+          <button type="submit" className="acquisitions-submit-button">
             Cadastrar Compra
           </button>
         </form>
-        {successMessage && <p style={{ color: 'green', marginTop: '10px' }}>{successMessage}</p>}
-        {error && <p style={{ color: 'red', marginTop: '10px' }}>{error}</p>}
+        {successMessage && <p className="acquisitions-success">{successMessage}</p>}
+        {error && <p className="acquisitions-error">{error}</p>}
       </div>
 
-      {/* Sessão de Listagem */}
-      <div>
+      <div className="acquisitions-list-section">
         <h2>Compras do Usuário</h2>
         {compras.length === 0 ? (
-          <p>Nenhuma compra encontrada.</p>
+          <p className="acquisitions-empty">Nenhuma compra encontrada.</p>
         ) : (
-          <ul>
+          <ul className="acquisitions-list">
             {compras.map((compra, index) => (
-              <li key={index}>
+              <li key={index} className="acquisitions-list-item">
                 <strong>Descrição:</strong> {compra.descricao} <br />
                 <strong>Valor:</strong> R$ {compra.valor}
               </li>

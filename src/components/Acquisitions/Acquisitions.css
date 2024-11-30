@@ -1,0 +1,102 @@
+.acquisitions-container {
+    padding: 20px;
+    max-width: 600px;
+    margin: 0 auto;
+    font-family: Arial, sans-serif;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .acquisitions-title {
+    text-align: center;
+    font-size: 24px;
+    color: #333;
+    margin-bottom: 20px;
+  }
+  
+  .acquisitions-back-button {
+    display: block;
+    margin: 0 auto 20px;
+    padding: 10px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .acquisitions-back-button:hover {
+    background-color: #0056b3;
+  }
+  
+  .acquisitions-form-section {
+    margin-bottom: 20px;
+  }
+  
+  .acquisitions-field {
+    margin-bottom: 10px;
+  }
+  
+  .acquisitions-input {
+    width: 100%;
+    padding: 8px;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+  }
+  
+  .acquisitions-submit-button {
+    width: 100%;
+    padding: 10px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    margin-top: 10px;
+  }
+  
+  .acquisitions-submit-button:hover {
+    background-color: #0056b3;
+  }
+  
+  .acquisitions-success {
+    color: green;
+    text-align: center;
+    margin-top: 10px;
+  }
+  
+  .acquisitions-error {
+    color: red;
+    text-align: center;
+    margin-top: 10px;
+  }
+  
+  .acquisitions-list-section {
+    margin-top: 20px;
+  }
+  
+  .acquisitions-list {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .acquisitions-list-item {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+    font-size: 16px;
+  }
+  
+  .acquisitions-list-item:last-child {
+    border-bottom: none;
+  }
+  
+  .acquisitions-empty {
+    text-align: center;
+    color: #555;
+  }
+  

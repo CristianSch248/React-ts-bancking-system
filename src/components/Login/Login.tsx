@@ -1,5 +1,6 @@
-import axios from 'axios';
 import React, { useState } from 'react';
+import { Service } from '../../services/service';
+import './Login.css';
 
 interface LoginProps {
   onLoginSuccess: () => void;
@@ -26,21 +27,14 @@ const Login: React.FC<LoginProps> = ({
     }
 
     try {
-      const endpoint = isAdmin
-        ? 'http://localhost:3000/users/auth/admin'
-        : 'http://localhost:3000/users/auth/user';
+      const credentials = { user: username, senha: password };
+      const userId = isAdmin
+        ? await Service.authenticateAdmin(credentials)
+        : await Service.authenticateUser(credentials);
 
-      const response = await axios.post(endpoint, {
-        user: username,
-        senha: password,
-      });
-
-      const userId = response.data;
-
-      if (userId && userId !== 0 && userId !== null && userId !== undefined && userId !== '') {
+      if (userId) {
         sessionStorage.setItem('userId', userId);
         console.log('ID do usuário salvo na sessão:', userId);
-
         setError(null);
 
         if (isAdmin) {
@@ -60,30 +54,30 @@ const Login: React.FC<LoginProps> = ({
   };
 
   return (
-    <div style={{ padding: '20px', maxWidth: '400px', margin: '0 auto' }}>
-      <h2>Login</h2>
-      {error && <p style={{ color: 'red' }}>{error}</p>}
+    <div className="login-container">
+      <h2 className="login-title">Login</h2>
+      {error && <p className="login-error">{error}</p>}
       <form onSubmit={handleLogin}>
-        <div style={{ marginBottom: '10px' }}>
-          <label>Username:</label>
+        <div className="login-field">
+          <label className="login-label">Username:</label>
           <input
             type="text"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
-            style={{ width: '100%', padding: '8px', marginTop: '5px' }}
+            className="login-input"
           />
         </div>
-        <div style={{ marginBottom: '10px' }}>
-          <label>Password:</label>
+        <div className="login-field">
+          <label className="login-label">Password:</label>
           <input
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            style={{ width: '100%', padding: '8px', marginTop: '5px' }}
+            className="login-input"
           />
         </div>
-        <div style={{ marginBottom: '10px' }}>
-          <label>
+        <div className="login-field">
+          <label className="login-checkbox">
             <input
               type="checkbox"
               checked={isAdmin}
@@ -92,26 +86,11 @@ const Login: React.FC<LoginProps> = ({
             Login como Administrador
           </label>
         </div>
-        <button
-          type="submit"
-          style={{
-            width: '100%',
-            padding: '10px',
-            backgroundColor: '#007BFF',
-            color: '#fff',
-            border: 'none',
-            borderRadius: '5px',
-            cursor: 'pointer',
-            marginBottom: '10px',
-          }}
-        >
+        <button type="submit" className="login-button">
           Login
         </button>
       </form>
-      <button
-        onClick={navigateToCreateUser}
-        style={{ width: '100%', padding: '10px', marginBottom: '10px' }}
-      >
+      <button onClick={navigateToCreateUser} className="login-secondary-button">
         Ir para Cadastro
       </button>
     </div>

@@ -1,0 +1,65 @@
+.dashboard-container {
+    padding: 20px;
+    max-width: 600px;
+    margin: 0 auto;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    font-family: Arial, sans-serif;
+  }
+  
+  .dashboard-title {
+    font-size: 24px;
+    color: #333;
+    margin-bottom: 10px;
+  }
+  
+  .dashboard-subtitle {
+    font-size: 16px;
+    color: #555;
+    margin-bottom: 20px;
+  }
+  
+  .dashboard-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+  
+  .dashboard-button {
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    color: #fff;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .acquisitions-button {
+    background-color: #007bff;
+  }
+  
+  .acquisitions-button:hover {
+    background-color: #0056b3;
+  }
+  
+  .deposits-button {
+    background-color: #28a745;
+  }
+  
+  .deposits-button:hover {
+    background-color: #1e7e34;
+  }
+  
+  .logout-button {
+    background-color: #ff0000;
+  }
+  
+  .logout-button:hover {
+    background-color: #cc0000;
+  }
+  

@@ -1,5 +1,6 @@
-import axios from 'axios';
 import React, { useState } from 'react';
+import { Service } from '../../services/service';
+import './Deposits.css';
 
 interface DepositsProps {
   navigateToDashboard: () => void;
@@ -7,8 +8,8 @@ interface DepositsProps {
 
 const Deposits: React.FC<DepositsProps> = ({ navigateToDashboard }) => {
   const [valor, setValor] = useState('');
-  const [status ] = useState('Pendente');
-  const [userId ] = useState<string | null>(sessionStorage.getItem('userId'));
+  const [status] = useState('Pendente');
+  const [userId] = useState<string | null>(sessionStorage.getItem('userId'));
   const [error, setError] = useState<string | null>(null);
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
 
@@ -20,73 +21,50 @@ const Deposits: React.FC<DepositsProps> = ({ navigateToDashboard }) => {
     }
 
     try {
-      const response = await axios.post('http://localhost:3000/deposits', {
+      const createDepositDto = {
         valor: parseFloat(valor),
         status,
         userId,
-      });
+      };
+      const response = await Service.createDeposit(createDepositDto);
 
       setSuccessMessage('Depósito cadastrado com sucesso!');
       setValor('');
       setError(null);
-      console.log('Depósito criado:', response.data);
+      console.log('Depósito criado:', response);
     } catch (err: any) {
       console.error('Erro ao criar depósito:', err);
-      setError(err.response?.data?.message || 'Erro ao cadastrar depósito.' + err);
+      setError(err.response?.data?.message || 'Erro ao cadastrar depósito.');
     }
   };
 
   return (
-    <div style={{ padding: '20px', maxWidth: '600px', margin: '0 auto' }}>
-      <h1>Cadastro de Depósitos</h1>
+    <div className="deposits-container">
+      <h1 className="deposits-title">Cadastro de Depósitos</h1>
 
-      {/* Botão para voltar à Dashboard */}
-      <button
-        onClick={navigateToDashboard}
-        style={{
-          marginBottom: '20px',
-          padding: '10px',
-          backgroundColor: '#007BFF',
-          color: '#FFF',
-          border: 'none',
-          borderRadius: '5px',
-          cursor: 'pointer',
-        }}
-      >
+      <button className="deposits-back-button" onClick={navigateToDashboard}>
         Voltar à Dashboard
       </button>
 
-      {/* Formulário para cadastro de depósito */}
-      <form onSubmit={handleCreateDeposit}>
-        <div style={{ marginBottom: '10px' }}>
-          <label>Valor:</label>
+      <form className="deposits-form" onSubmit={handleCreateDeposit}>
+        <div className="deposits-field">
+          <label className="deposits-label">Valor:</label>
           <input
             type="number"
             step="0.01"
             value={valor}
             onChange={(e) => setValor(e.target.value)}
             placeholder="Digite o valor"
-            style={{ width: '100%', padding: '8px', marginTop: '5px' }}
+            className="deposits-input"
           />
         </div>
-        <button
-          type="submit"
-          style={{
-            width: '100%',
-            padding: '10px',
-            backgroundColor: '#007BFF',
-            color: '#FFF',
-            border: 'none',
-            borderRadius: '5px',
-            cursor: 'pointer',
-          }}
-        >
+        <button type="submit" className="deposits-submit-button">
           Cadastrar Depósito
         </button>
       </form>
 
-      {successMessage && <p style={{ color: 'green', marginTop: '10px' }}>{successMessage}</p>}
-      {error && <p style={{ color: 'red', marginTop: '10px' }}>{error}</p>}
+      {successMessage && <p className="deposits-success">{successMessage}</p>}
+      {error && <p className="deposits-error">{error}</p>}
     </div>
   );
 };

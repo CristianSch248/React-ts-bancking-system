@@ -22,7 +22,7 @@ const App: React.FC = () => {
 
   return (
     <div>
-      <h1>Gerenciamento de Usuários</h1>
+      <h1>Banking System</h1>
       {currentScreen === 'login' && (
         <Login
           onLoginSuccess={navigateToDashboard}

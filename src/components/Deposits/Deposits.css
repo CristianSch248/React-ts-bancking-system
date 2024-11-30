@@ -1,0 +1,89 @@
+.deposits-container {
+    padding: 20px;
+    max-width: 600px;
+    margin: 0 auto;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    font-family: Arial, sans-serif;
+  }
+  
+  .deposits-title {
+    font-size: 24px;
+    color: #333;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .deposits-back-button {
+    display: block;
+    margin: 0 auto 20px;
+    padding: 10px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    text-align: center;
+    transition: background-color 0.3s ease;
+  }
+  
+  .deposits-back-button:hover {
+    background-color: #0056b3;
+  }
+  
+  .deposits-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  .deposits-field {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .deposits-label {
+    font-size: 14px;
+    margin-bottom: 5px;
+    color: #555;
+  }
+  
+  .deposits-input {
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  .deposits-submit-button {
+    padding: 10px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .deposits-submit-button:hover {
+    background-color: #0056b3;
+  }
+  
+  .deposits-success {
+    color: green;
+    text-align: center;
+    font-size: 14px;
+    margin-top: 10px;
+  }
+  
+  .deposits-error {
+    color: red;
+    text-align: center;
+    font-size: 14px;
+    margin-top: 10px;
+  }
+  

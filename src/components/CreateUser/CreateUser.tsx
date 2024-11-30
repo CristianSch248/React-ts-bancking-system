@@ -1,6 +1,6 @@
-// src/components/CreateUser/CreateUser.ts
 import React, { useState } from 'react';
-import { userService } from '../../services/userService';
+import { Service } from '../../services/service';
+import './CreateUser.css';
 
 interface CreateUserProps {
   navigateToLogin: () => void;
@@ -14,7 +14,7 @@ const CreateUser: React.FC<CreateUserProps> = ({ navigateToLogin }) => {
 
   const handleCreateUser = async () => {
     try {
-      const newUser = await userService.createUser({ username, password, balance });
+      const newUser = await Service.createUser({ username, password, balance });
       setMessage(`Usuário ${newUser.username} criado com sucesso!`);
       alert(`Usuário ${newUser.username} criado com sucesso!`);
       navigateToLogin();
@@ -25,23 +25,31 @@ const CreateUser: React.FC<CreateUserProps> = ({ navigateToLogin }) => {
   };
 
   return (
-    <div>
-      <h1>Criar Usuário</h1>
+    <div className="create-user-container">
+      <h1 className="create-user-title">Criar Usuário</h1>
       <input
+        className="create-user-input"
         type="text"
         placeholder="Nome de usuário"
         value={username}
         onChange={(e) => setUsername(e.target.value)}
       />
       <input
+        className="create-user-input"
         type="password"
         placeholder="Senha"
         value={password}
         onChange={(e) => setPassword(e.target.value)}
       />
-      <button onClick={handleCreateUser}>Criar</button>
-      <button onClick={navigateToLogin}>Voltar</button>
-      {message && <p>{message}</p>}
+      <div className="create-user-buttons">
+        <button className="create-user-button" onClick={handleCreateUser}>
+          Criar
+        </button>
+        <button className="create-user-button back-button" onClick={navigateToLogin}>
+          Voltar
+        </button>
+      </div>
+      {message && <p className="create-user-message">{message}</p>}
     </div>
   );
 };
