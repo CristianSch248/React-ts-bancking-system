@@ -18,11 +18,6 @@ interface User {
   balance: number;
 }
 
-interface AdminCredentials {
-  user: string;
-  senha: string;
-}
-
 interface CreateAcquisitionDto {
   descricao: string;
   valor: string;
