@@ -6,11 +6,12 @@ interface LoginProps {
   onLoginSuccess: () => void;
   navigateToAdminDashboard: () => void;
   navigateToCreateUser: () => void;
+  navigateToDashboard: () => void; // Verifique se esta linha está no arquivo
 }
 
 const Login: React.FC<LoginProps> = ({
-  onLoginSuccess,
   navigateToAdminDashboard,
+  navigateToDashboard,
   navigateToCreateUser,
 }) => {
   const [username, setUsername] = useState('');
@@ -18,32 +19,41 @@ const Login: React.FC<LoginProps> = ({
   const [isAdmin, setIsAdmin] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  const handleLogin = async (e: React.FormEvent) => {
+  const handleLogin = async (e: React.FormEvent): Promise<void> => {
     e.preventDefault();
+    setError(null); // Limpa os erros anteriores
 
+    // Validação dos campos
     if (!username.trim() || !password.trim()) {
       setError('Por favor, preencha todos os campos.');
       return;
     }
 
     try {
-      const credentials = { user: username, senha: password };
-      const userId = isAdmin
-        ? await Service.authenticateAdmin(credentials)
-        : await Service.authenticateUser(credentials);
+      const credentials = { username: username, password: password };
+      console.log('Tentando autenticar com as credenciais:', credentials);
 
-      if (userId) {
-        sessionStorage.setItem('userId', userId);
-        console.log('ID do usuário salvo na sessão:', userId);
-        setError(null);
-
-        if (isAdmin) {
+      let response: any;
+      if (isAdmin) {
+        response = await Service.authenticateAdmin(credentials);
+        if (response?.statusCode === 200) {
+          console.log('Autenticação de admin bem-sucedida.');
           navigateToAdminDashboard();
+          return;
         } else {
-          onLoginSuccess();
+          setError('Falha na autenticação de administrador.');
         }
       } else {
-        setError('Falha na autenticação. Verifique suas credenciais.');
+        response = await Service.authenticateUser(credentials);
+        console.log("🚀 ~ handleLogin ~ response:", response)
+        if (response) {
+          console.log('Autenticação de usuário bem-sucedida.');
+          sessionStorage.setItem('userId', response);
+          navigateToDashboard();
+          return;
+        } else {
+          setError('Falha na autenticação. Verifique suas credenciais.');
+        }
       }
     } catch (err: any) {
       console.error('Erro ao autenticar:', err);

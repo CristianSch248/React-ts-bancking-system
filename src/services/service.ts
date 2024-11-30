@@ -44,8 +44,8 @@ interface CreateDepositDto {
 }
 
 interface AuthCredentials {
-  user: string;
-  senha: string;
+  username: string;
+  password: string;
 }
 
 export const Service = {
@@ -109,6 +109,7 @@ export const Service = {
 
   async authenticateUser(credentials: AuthCredentials): Promise<string> {
     const response = await api.post('/users/auth/user', credentials);
+    console.log("🚀 ~ authenticateUser ~ response:", response)
     return response.data; // Supondo que o backend retorna o ID do usuário
   },
 

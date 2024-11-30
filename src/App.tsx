@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import Acquisitions from './components/Acquisitions/Acquisitions';
-import AdminDashboard from './components/AdminDashboard/AdminDashboard'; // Dashboard do administrador
+import AdminDashboard from './components/AdminDashboard/AdminDashboard';
 import CreateUser from './components/CreateUser/CreateUser';
 import Dashboard from './components/Dashboard/Dashboard';
 import Deposits from './components/Deposits/Deposits';
@@ -17,7 +17,6 @@ const App: React.FC = () => {
   const navigateToAdminDashboard = () => setCurrentScreen('adminDashboard');
   const navigateToAcquisitions = () => setCurrentScreen('acquisitions');
   const navigateToDeposits = () => setCurrentScreen('deposits');
-
   const logout = () => setCurrentScreen('login');
 
   return (
@@ -26,8 +25,9 @@ const App: React.FC = () => {
       {currentScreen === 'login' && (
         <Login
           onLoginSuccess={navigateToDashboard}
-          navigateToAdminDashboard={navigateToAdminDashboard} // Navegação para a dashboard do administrador
+          navigateToAdminDashboard={navigateToAdminDashboard}
           navigateToCreateUser={navigateToCreateUser}
+          navigateToDashboard={navigateToDashboard}
         />
       )}
       {currentScreen === 'createUser' && <CreateUser navigateToLogin={navigateToLogin} />}
@@ -38,9 +38,7 @@ const App: React.FC = () => {
           navigateToDeposits={navigateToDeposits}
         />
       )}
-      {currentScreen === 'adminDashboard' && (
-        <AdminDashboard logout={logout} /> // Dashboard do administrador
-      )}
+      {currentScreen === 'adminDashboard' && <AdminDashboard logout={logout} />}
       {currentScreen === 'acquisitions' && (
         <Acquisitions navigateToDashboard={navigateToDashboard} />
       )}

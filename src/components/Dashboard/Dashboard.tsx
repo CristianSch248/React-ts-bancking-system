@@ -3,8 +3,8 @@ import './Dashboard.css';
 
 interface DashboardProps {
   logout: () => void;
-  navigateToAcquisitions: () => void; // Navegar para compras
-  navigateToDeposits: () => void; // Navegar para depósitos
+  navigateToAcquisitions: () => void;
+  navigateToDeposits: () => void;
 }
 
 const Dashboard: React.FC<DashboardProps> = ({
