@@ -51,7 +51,6 @@ interface AuthCredentials {
 export const Service = {
   async getUsers(): Promise<User[]> {
     const response = await api.get('/users');
-    console.log("🚀 ~ getUsers ~ response:", response)
     return response.data;
   },
 
@@ -109,12 +108,11 @@ export const Service = {
 
   async authenticateUser(credentials: AuthCredentials): Promise<string> {
     const response = await api.post('/users/auth/user', credentials);
-    console.log("🚀 ~ authenticateUser ~ response:", response)
-    return response.data; // Supondo que o backend retorna o ID do usuário
+    return response.data;
   },
 
   async authenticateAdmin(credentials: AuthCredentials): Promise<string> {
     const response = await api.post('/users/auth/admin', credentials);
-    return response.data; // Supondo que o backend retorna o ID do administrador
+    return response.data;
   },
 };

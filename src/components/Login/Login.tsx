@@ -45,7 +45,6 @@ const Login: React.FC<LoginProps> = ({
         }
       } else {
         response = await Service.authenticateUser(credentials);
-        console.log("🚀 ~ handleLogin ~ response:", response)
         if (response) {
           console.log('Autenticação de usuário bem-sucedida.');
           sessionStorage.setItem('userId', response);
